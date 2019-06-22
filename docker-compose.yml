@@ -1,0 +1,26 @@
+version: "3"
+services:
+  dev:
+    container_name: node_dev_server
+    command: nodemon -L --watch . -e js server.js
+    volumes: 
+      - .:/usr/src/app
+    build: .
+    ports:
+      - "5000:3000"
+    links:
+      - mongo
+  app:
+    container_name: node_prod_server
+    restart: always
+    build: .
+    command: npm start
+    ports:
+      - "5000:3000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
