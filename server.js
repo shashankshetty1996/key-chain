@@ -12,12 +12,13 @@ const { validateUser, isTerminated } = require('./actions');
 (async () => {
   // mongoose connection
   try {
-    const mongoosePromise = await mongoose.connect(keys.mongo_url, { useNewUrlParser: true });
+    const mongoosePromise = await mongoose.connect(keys.mlabs_mongo_url, { useNewUrlParser: true });
     console.log('MongoDB connected...');
-    mainFuntion();
+    await mainFuntion();
   } catch (error) {
     console.error(error); 
   }
+  process.exit();
 })();
 
 const mainFuntion = async () => {
@@ -26,10 +27,10 @@ const mainFuntion = async () => {
 
   const validatedResult = validateUser(authResponse);
 
-  console.log(isTerminated(authResponse), validatedResult.isValid);
   if (validatedResult.isValid) {
     // perform validation code here
+    return console.log(validatedResult.message);
   } else if (isTerminated(authResponse) || !validatedResult.isValid) {
-    console.error(validatedResult.message);
+    return console.error(validatedResult.message);
   }
 };
