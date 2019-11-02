@@ -9,7 +9,7 @@
   "author": "Shashank S Shetty",
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^5.6.0",
+    "mongoose": "^5.7.5",
     "prompts": "^2.1.0",
     "yargs": "^13.2.4"
   }
